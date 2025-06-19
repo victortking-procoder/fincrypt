@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: fincrypt-blog
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn mediblog.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: mediblog.settings
+      - key: DATABASE_URL
+        sync: false  # You’ll paste this from Railway manually in the dashboard
+      - key: SECRET_KEY
+        sync: false
+      - key: DEBUG
+        value: "False"

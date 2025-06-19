@@ -1,0 +1,22 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ad Page</title>
+    <style>
+        body { font-family: Arial; text-align: center; padding: 50px; }
+        .ad-container { margin: 20px auto; }
+        #continue { display: none; margin-top: 30px; padding: 10px 20px; background: #28a745; color: #fff; border: none; border-radius: 6px; }
+    </style>
+</head>
+<body>
+    <h1>🔒 Click the ad below to reveal the code</h1>
+
+    <div class="ad-container">
+        <!-- 🟨 Replace this with actual Adsterra script -->
+        <a href="{{ redirect_to }}" onclick="handleClick()" target="_blank">
+            <img src="{% static 'ad-banner.jpg' %}" alt="Click Ad" width="728" height="90">
+        </a>
+    </div>
+</body>
+</html>

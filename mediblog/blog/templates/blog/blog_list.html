@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore in-depth articles on Layer 2, crypto, and more — written by Victor Fredrick.">
+    <meta name="keywords" content="blog, Layer 2, blockchain, crypto, finance, innovation">
+    <meta name="author" content="Victor Fredrick">
+    <title>Fincrypt Journal, Blockchain, Crypto & Tech Insights</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+
+        <header class="blog-header">
+            <h1>Welcome to FinCrypt Journal</h1>
+            <p class="subtitle">Blockchain & Tech insights by Victor Fredrick</p>
+        </header>
+
+        <!-- 🟨 Ad Slot 1: Top Banner -->
+        <div class="ad-slot">
+            <p>Top Banner Ad Placeholder (728x90)</p>
+        </div>
+
+        <main class="article-list">
+            {% for article in articles %}
+                <article class="article-card">
+                    {% if article.image %}
+                        <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-image">
+                    {% endif %}
+                    <h2><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></h2>
+                    <p class="timestamp">{{ article.created_at|date:"F j, Y" }}</p>
+                    <p class="summary">{{ article.summary|truncatewords:30 }}</p>
+                    <a href="{% url 'article_detail' article.pk %}" class="read-more">Read more &rarr;</a>
+                </article>
+
+                {% if forloop.counter|divisibleby:3 %}
+                    <!-- 🟨 Ad Slot 2: Inline Ad after every 3 articles -->
+                    <div class="ad-slot">
+                        <p>Inline Ad Placeholder</p>
+                    </div>
+                {% endif %}
+            {% empty %}
+                <p>No articles available at the moment.</p>
+            {% endfor %}
+        </main>
+
+        <!-- 🟨 Ad Slot 3: Footer Ad -->
+        <div class="ad-slot">
+            <p>Footer Ad Placeholder (Responsive)</p>
+        </div>
+
+        <footer class="blog-footer">
+            <p>&copy; {{ now|date:"Y" }} FinCrypt Journal. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
+

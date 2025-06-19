@@ -1,0 +1,98 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ article.summary|default:article.title }}">
+    <meta name="keywords" content="blog, Layer 2, blockchain, crypto, finance, innovation">
+    <meta name="author" content="Victor Fredrick">
+    <title>{{ article.title }} | FinCrypt Journal</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+
+        <header class="blog-header">
+            <h1>{{ article.title }}</h1>
+            <p class="timestamp">{{ article.created_at|date:"F j, Y" }}</p>
+        </header>
+
+        {% if article.image %}
+            <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-image">
+        {% endif %}
+
+        <!-- 🟨 Ad Slot 1 -->
+        <div class="ad-slot">
+            <p>Ad Placeholder 1</p>
+        </div>
+
+        <div class="article-content">
+
+            <!-- 🟨 Ad Slot 2 -->
+            <div class="ad-slot">
+                <p>Ad Placeholder 2 - Pre Content</p>
+            </div>
+
+            {% for para in paragraphs %}
+                <p>{{ para|linebreaksbr }}</p>
+
+                {% if forloop.counter == paragraphs|length|divisibleby:"2" %}
+                    <!-- 🟨 Ad Slot 3 -->
+                    <div class="ad-slot">
+                        <p>Ad Placeholder 3 - Mid Content</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <!-- 🟨 Ad Slot 4 -->
+            <div class="ad-slot">
+                <p>Ad Placeholder 4 - Post Content</p>
+            </div>
+        </div>
+
+        {% if show_code %}
+            <div class="code-box">
+                <h3>🎉 Your code: <strong>{{ code }}</strong></h3>
+            </div>
+        {% endif %}
+
+        {% if next_sequence and sequence != 10 %}
+            <div class="next-section">
+                <button id="nextBtn" class="next-btn" onclick="location.href='/article/{{ next_sequence }}/'">
+                    Next Article
+                </button>
+                <p id="timer">Please wait 60 seconds...</p>
+            </div>
+        {% endif %}
+
+        <a href="{% url 'blog_list' %}" class="back-button">← Back to Blog List</a>
+
+        <!-- 🟨 Ad Slot 5 -->
+        <div class="ad-slot">
+            <p>Ad Placeholder 5 (e.g., footer)</p>
+        </div>
+    </div>
+
+    {% if next_sequence and sequence != 10 %}
+    <script>
+        let waitTime = 60;
+        const timerEl = document.getElementById('timer');
+        const nextBtn = document.getElementById('nextBtn');
+        nextBtn.disabled = true;
+
+        let countdown = setInterval(() => {
+            waitTime--;
+            timerEl.textContent = `Please wait ${waitTime} seconds...`;
+            if (waitTime <= 0) {
+                clearInterval(countdown);
+                nextBtn.disabled = false;
+                timerEl.textContent = "You can now continue.";
+            }
+        }, 1000);
+    </script>
+    {% endif %}
+</body>
+</html>

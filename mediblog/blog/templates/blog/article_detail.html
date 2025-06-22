@@ -91,9 +91,7 @@
 
         {% if next_sequence and sequence != 10 %}
             <div class="next-section">
-                <button id="nextBtn" class="next-btn" onclick="location.href='/article/{{ next_sequence }}/'">
-                    Next Article
-                </button>
+                <a href="/article/{{ next_sequence }}/" class="next-btn">Next Article</a>
                 <p id="timer">Please wait 60 seconds...</p>
             </div>
         {% endif %}
